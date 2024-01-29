@@ -6,7 +6,7 @@ import CircularProgress from '@mui/joy/CircularProgress';
 import imageCompression from 'browser-image-compression';
 
 function App() {
-  const fileTypes = ["JPG", "JPEG", "PNG", "SVG"];
+  const fileTypes = ["JPG", "JPEG", "PNG", "SVG","AVIF","WEBP"];
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [generatedText, setGeneratedText] = useState("");
@@ -49,14 +49,17 @@ function App() {
   }
 
   const handleGenerate = async () => {
+    
     if (images.length === 0 || images === null) {
       console.log("No image");
       return;
     }
+
+    setGeneratedText("");
   
     try {
       const apiKey = config.apiKey;
-      const prompt = "I need you act as the caption provider for this image. Makes the caption looks simple and straight to the point. If you are captioning the food, please do not mention all of the ingredients, make it simple and only describe ingradients that most accurate only. Do not use uppercase for the first letter. Do not adding full stop at the end. No uppercase unless for proper nouns. Do not using the name of the people even you know the name, still using man or woman to describe. Caption must be english. What is this picture caption? All the caption within 5 until 15 words. Caption end with on the floor, on the grass, in the forest, besides of item's name was accepted. Ensure the correct use of preposition (by/at/into/with)​. Ensure the correct use of pronouns (he/she/it/they/them)​. Caption can be simplified, but must relate to image​. Caption must be lower case except for names​ . Ensure captions does not include subjective terms​(emotions[happy,sad,suppriced]/sizes[big,small]/looks[cute/urgly/buetiful]). Ensure captions does not include phrases (there are/ a view of/ a picture of). Avoid describing the sky unless it is focused. Please use general term for human such as children, people, women, woman, men, man. Don't assume and guessing picture object relationship such as wild/pet/human's relationships[father,mother,husband,friends]. Do not using words like mother, father, mom, girlfriend, boyfriend, numbers of friends. Using verb to describe aciton. With the case not enough words can using a, the, an. Using two, three and following numbers of men or women instead of two, three or following numbers of friends.";
+      const prompt = "I need you act as the caption provider for this image. Makes the caption looks simple and straight to the point. If you are captioning the food, please do not mention all of the ingredients, do not use unhealthy, healty, delicious on food. Do not use adjective words. Do not use uppercase for the first letter. Do not adding full stop at the end. No uppercase unless for proper nouns. Do not using the name of the people even you know the name, still using man or woman to describe. Caption must be english. What is this picture caption? All the caption within 5 until 15 words. Caption end with on the floor, on the grass, in the forest, besides of item's name was accepted. Ensure the correct use of preposition (by/at/into/with)​. Ensure the correct use of pronouns (he/she/it/they/them)​. Caption can be simplified, but must relate to image​. Caption must be lower case except for names​ . Ensure captions does not include subjective terms​(emotions[happy,sad,suppriced]/sizes[big,small]/looks[cute/urgly/buetiful]). Ensure captions does not include phrases (there are/ a view of/ a picture of). Avoid describing the sky unless it is focused. Please use general term for human such as children, people, women, woman, men, man. Don't assume and guessing picture object relationship such as wild/pet/human's relationships[father,mother,husband,friends]. Do not using words like mother, father, mom, girlfriend, boyfriend, numbers of friends. Using verb to describe aciton. With the case not enough words can using a, the, an. Using two, three and following numbers of men or women instead of two, three or following numbers of friends.";
       const imagePart = {
         inline_data: {
           mime_type: "image/jpeg",
@@ -127,7 +130,7 @@ function App() {
       </button>
       )}
 
-      {generatedText && <div>Generated Text :{generatedText}</div>}
+      {generatedText && <div>{generatedText}</div>}
     </div>
   );
 }
